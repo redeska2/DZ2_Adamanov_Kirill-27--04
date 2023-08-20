@@ -1,54 +1,75 @@
 import React, { useState } from 'react';
 import './index.css';
 
+
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState('');
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phoneNumber: '',
+    email: '',
+    surname: '',
+  });
 
-  const addTask = () => {
-    if (newTask.trim() !== '') {
-      // Проверка на дублирование задач
-      if (!tasks.includes(newTask)) {
-        setTasks([...tasks, newTask]);
-        setNewTask('');
-      } else {
-        alert('Это задача уже существует');
-      }
-    }
-  };
-
-  const clearTasks = () => {
-    setTasks([]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   return (
-    <div className="App">
-      <h1>ToDo App</h1>
-      <div className="task-input">
-        <input
-          type="text"
-          placeholder="Enter a new task"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-        />
-        <button onClick={addTask}>Add Task</button>
-        <button onClick={clearTasks}>Clear Tasks</button>
+    <div className="form">
+      <div className="inputs">
+        <div className="input-container">
+          <input
+            placeholder="Enter your full name"
+            className="input"
+            type="text"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+          />
+          <p className="duplicate-value">{formData.fullName}</p>
+        </div>
+
+        <div className="input-container">
+          <input
+            placeholder="Enter your phone number"
+            className="input"
+            type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+          />
+          <p className="duplicate-value">{formData.phoneNumber}</p>
+        </div>
+
+        <div className="input-container">
+          <input
+            placeholder="Enter your email"
+            className="input"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <p className="duplicate-value">{formData.email}</p>
+        </div>
+
+        <div className="input-container">
+          <input
+            placeholder="Enter your surname"
+            className="input"
+            type="text"
+            name="surname"
+            value={formData.surname}
+            onChange={handleChange}
+          />
+          <p className="div-cate-value">{formData.surname}</p>
+        </div>
       </div>
-      <div className="task-list">
-        <h2>Task List</h2>
-        <ul>
-          {tasks.map((task, index) => (
-            <li key={index}>{task}</li>
-          ))}
-        </ul>
-      </div>
+
+      <button>Submit</button>
     </div>
   );
 }
-
+ 
 export default App;
-
-
-
-
-
